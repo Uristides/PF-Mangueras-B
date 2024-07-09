@@ -5,48 +5,49 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define("Manguera", {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     image: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    diameter: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    longitude: {
+      type: DataTypes.JSONB,
+      allowNull: false,
+    },
+    brand: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     type: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
-    diameter: {
-      type: DataTypes.STRING,
+    description: {
+      type: DataTypes.TEXT,
       allowNull: false,
-      unique: true,
     },
-    longitude: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    barand: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    price: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    stock: {
+    available: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      unique: true,
     },
   });
 };
