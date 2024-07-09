@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("manguera", {
+  sequelize.define("user", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -14,40 +14,17 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    image: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
       isUrl: true
     },
-    price: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    diameter: {
+    rol: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    longitude: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    brand: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    stock: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    description: {
-      type: DataTypes.STRING,
-    },
-    available: {
-      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   }, {timestamps: false});
