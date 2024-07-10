@@ -5,8 +5,8 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define("manguera", {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
+      autoIncrement:true,
       allowNull: false,
       primaryKey: true
     },
@@ -33,10 +33,6 @@ module.exports = (sequelize) => {
     },
     brand: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    stock: {
-      type: DataTypes.INTEGER,
       allowNull: false,
     },
     type: {

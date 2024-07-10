@@ -1,12 +1,9 @@
 const { Router } = require("express");
-//const accionDeTuta = require("./countryRouter");
 
-const router = Router();
+const productsRoutes = require("./productsRoutes")
 
-//router.use("/laRuta", accionDeRuta);
+const mainRouter = Router();
 
-const jose = () => {
-    return "aqui estuvo Jose"
-}
+mainRouter.use("/products", productsRoutes);
 
-module.exports = router;
+module.exports = mainRouter;

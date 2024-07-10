@@ -4,10 +4,10 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { PassThrough } = require("stream");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pf`,
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
   {
     logging: false,
     native: false,
@@ -35,11 +35,12 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 //aca los modelos de la base de datos
-const {} = sequelize.models;
+const {Manguera, Order, Review, Stock, User} = sequelize.models;
 
 // Aca vendrian las relaciones
 
 // Product.hasMany(Reviews);
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
