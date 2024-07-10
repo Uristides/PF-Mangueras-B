@@ -41,6 +41,17 @@ const {Manguera, Order, Review, Stock, User} = sequelize.models;
 
 // Product.hasMany(Reviews);
 
+User.hasMany(Order, {as:"ordenes", foreignKey:"client_id"})
+
+Order.belongsTo(User, {as:"cliente"})
+
+Stock.hasMany(Manguera, {as:"productos", foreignKey:"product_id"})
+
+Manguera.belongsTo(Stock, {as:"almacen"})
+
+Manguera.hasMany(Review, {as:"comentarios"})
+
+Review.belongsTo(Manguera, {as:"producto"})
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
