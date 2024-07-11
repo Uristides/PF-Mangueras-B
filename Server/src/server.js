@@ -18,7 +18,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mainRouter = require("./routes/index.js");
-const parceoDB = require("./parceo.js");
+// const parceoDB = require("./parceo.js");
 
 require("./db.js");
 
@@ -51,5 +51,5 @@ server.use((err, req, res, next) => {
   console.error(err);
   res.status(status).send(message);
 });
-//parceoDB();
+
 module.exports = server;
