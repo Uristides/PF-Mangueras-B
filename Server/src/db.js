@@ -41,7 +41,7 @@ const {Manguera, Order, Review, Stock, User} = sequelize.models;
 
 // Product.hasMany(Reviews);
 
-User.hasMany(Order, {as:"ordenes", foreignKey:"client_id"})
+User.hasMany(Order, {as:"ordenes", foreignKey:"ordenes_id"})
 
 Order.belongsTo(User, {as:"cliente"})
 
