@@ -25,6 +25,7 @@ module.exports = (sequelize) => {
     },
     rol: {
       type: DataTypes.STRING,
+      defaultValue:"user",
       allowNull: false,
     },
   }, {timestamps: false});
