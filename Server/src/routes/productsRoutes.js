@@ -1,11 +1,11 @@
-const { Router } = require("express")
-const getProductsHandler = require('../handlers/getProductsHandler')
+const { Router } = require("express");
+const getProductsHandler = require("../handlers/getProductsHandler");
 // const getDogByIdHandler = require("../handlers/getDogByIdHandler")
 // const createDogHandler = require("../handlers/createDogHandler")
 
-const productsRoutes = Router()
+const productsRoutes = Router();
 
-productsRoutes.get("/", getProductsHandler)
+productsRoutes.get("/", getProductsHandler);
 
 // productRoutes.get("/:id", )
 
