@@ -1,4 +1,4 @@
-const { Manguera } = require("../db");
+const { Manguera } = require("../../db");
 
 const createProductDB = async (data /*brands*/) => {
   const manguera = await Manguera.create(data);
