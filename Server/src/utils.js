@@ -32,9 +32,6 @@ const parceoDB = async () => {
       // Utiliza bulkCreate para insertar los datos en la base de datos
       await Manguera.bulkCreate(manguerasToInsert);
   
-      console.log(
-        "Los datos se han insertado correctamente en la base de datos."
-      );
     } catch (error) {
       console.error(
         "Error al obtener datos de mangueras o al insertar datos en la base de datos:",
