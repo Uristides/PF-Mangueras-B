@@ -1,12 +1,7 @@
-const db = require("../db.json")
+const { Op } = require("sequelize");
+const { Manguera } = require("../db");
 
-
-const getProducts = () => {
-    const products = db.map( pro => {
-        return pro
-    })
-
-    return products
-}
-
-module.exports = getProducts
+const getProducts = async () => {
+  return await Manguera.findAll();
+};
+module.exports = getProducts;
