@@ -1,5 +1,4 @@
-const { Op } = require("sequelize");
-const { Manguera } = require("../db");
+const { Manguera } = require("../../db");
 
 const getProducts = async () => {
   return await Manguera.findAll();
