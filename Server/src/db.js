@@ -1,9 +1,7 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
-
 const fs = require("fs");
 const path = require("path");
-const { PassThrough } = require("stream");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 const sequelize = new Sequelize(
@@ -17,43 +15,46 @@ const basename = path.basename(__filename);
 
 const modelDefiners = [];
 
-fs.readdirSync(path.join(__dirname, "/models"))
-  .filter(
-    (file) =>
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
-  )
-  .forEach((file) => {
-    modelDefiners.push(require(path.join(__dirname, "/models", file)));
-  });
+// Función para agregar modelos desde una carpeta específica
+const addModelsFromFolder = (folderPath) => {
+  fs.readdirSync(folderPath)
+    .filter(
+      (file) =>
+        file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+    )
+    .forEach((file) => {
+      modelDefiners.push(require(path.join(folderPath, file)));
+    });
+};
 
+// Agregar modelos desde la carpeta "models"
+addModelsFromFolder(path.join(__dirname, "/models"));
+
+// Agregar modelos desde la carpeta "categories"
+addModelsFromFolder(path.join(__dirname, "/models/categories"));
+
+// Definir los modelos
 modelDefiners.forEach((model) => model(sequelize));
 
+// Capitalizar nombres de los modelos
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [
   entry[0][0].toUpperCase() + entry[0].slice(1),
   entry[1],
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
-//aca los modelos de la base de datos
-const {Manguera, Order, Review, Stock, User} = sequelize.models;
+
+// Aca los modelos de la base de datos
+const { Manguera, Order, Review, Stock, User, Brands, Longitudes, Types } =
+  sequelize.models;
 
 // Aca vendrian las relaciones
-
-// Product.hasMany(Reviews);
-
-User.hasMany(Order, {foreignKey:"userId"})
-
-Order.belongsTo(User, {foreignKey:"userId"})
-
-Stock.hasMany(Manguera)
-
-Manguera.belongsTo(Stock)
-
-Manguera.hasMany(Review)
-
-Review.belongsTo(Manguera)
+User.hasMany(Order, { foreignKey: "userId" });
+Order.belongsTo(User, { foreignKey: "userId" });
+Manguera.hasMany(Review);
+Review.belongsTo(Manguera);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-  conn: sequelize, // para importart la conexión { conn } = require('./db.js')
+  conn: sequelize, // para importar la conexión { conn } = require('./db.js')
 };
