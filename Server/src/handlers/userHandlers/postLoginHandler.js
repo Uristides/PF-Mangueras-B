@@ -1,6 +1,7 @@
 const { User } = require("../../db");
 const { compare } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
+const { SECRET } = process.env;
 
 const loginUserHandler = async (req, res) => {
   const { email, password } = req.body;
@@ -27,7 +28,9 @@ const loginUserHandler = async (req, res) => {
         return res.status(409).send("contrseña invalida");
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 };
 
 module.exports = loginUserHandler;
