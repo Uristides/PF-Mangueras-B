@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      longitude: {
+      /*longitude: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
       type: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
+      },*/
       description: {
         type: DataTypes.STRING,
       },

@@ -11,6 +11,6 @@ UserRoutes.post("/register", registerUserHandler);
 UserRoutes.post("/login", loginUserHandler);
 UserRoutes.get("/", getUsersHandler);
 UserRoutes.get("/protected", protectedHandler);
-UserRoutes.get("/logout", logoutHandler);
+UserRoutes.post("/logout", logoutHandler);
 
 module.exports = UserRoutes;

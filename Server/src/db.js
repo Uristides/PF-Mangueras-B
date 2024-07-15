@@ -49,6 +49,19 @@ const { Manguera, Order, Review, Stock, User, Brands, Longitudes, Types } =
   sequelize.models;
 
 // Aca vendrian las relaciones
+
+// Relación uno a muchos (1:N) entre Manguera y Brands
+Manguera.belongsTo(Brands, { foreignKey: "brandId" });
+Brands.hasMany(Manguera, { foreignKey: "brandId" });
+// Relación uno a muchos (1:N) entre Manguera y Types
+Manguera.belongsTo(Types, { foreignKey: "typeId" });
+Types.hasMany(Manguera, { foreignKey: "typeId" });
+
+//// Relación muchos a muchos (N:M) entre Manguera y Longituds
+Manguera.belongsToMany(Longitudes, { through: "MangueraLongitudes" });
+Longitudes.belongsToMany(Manguera, { through: "MangueraLongitudes" });
+
+//
 User.hasMany(Order, { foreignKey: "userId" });
 Order.belongsTo(User, { foreignKey: "userId" });
 Manguera.hasMany(Review);
