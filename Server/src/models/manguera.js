@@ -30,11 +30,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      /*longitude: {
+      longitude: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      brand: {
+      /*brand: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -50,6 +50,10 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       available: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      show: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },

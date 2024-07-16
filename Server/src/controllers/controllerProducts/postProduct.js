@@ -1,6 +1,6 @@
-const { Manguera, Brands, Types, Longitudes } = require("../../db");
+const { Manguera, Brands, Types } = require("../../db");
 
-const createProductDB = async (data, longitude, brand, type) => {
+const createProductDB = async (data, brand, type) => {
   const marca = await Brands.findOne({
     where: { brand: brand },
   });
@@ -13,11 +13,6 @@ const createProductDB = async (data, longitude, brand, type) => {
     brandId: marca.id,
     typeId: tipo.id,
   });
-  const longitudeRelacion = await Longitudes.findAll({
-    where: { longitude: longitude },
-  });
-  await manguera.addLongitudes(longitudeRelacion); // se hace la relacion de las tablas
-
   return manguera;
 };
 module.exports = createProductDB;
