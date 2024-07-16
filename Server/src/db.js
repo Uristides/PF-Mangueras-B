@@ -57,15 +57,10 @@ Brands.hasMany(Manguera, { foreignKey: "brandId" });
 Manguera.belongsTo(Types, { foreignKey: "typeId" });
 Types.hasMany(Manguera, { foreignKey: "typeId" });
 
-//// Relación muchos a muchos (N:M) entre Manguera y Longituds
-Manguera.belongsToMany(Longitudes, { through: "MangueraLongitudes" });
-Longitudes.belongsToMany(Manguera, { through: "MangueraLongitudes" });
-
-//
-User.hasMany(Order, { foreignKey: "userId" });
-Order.belongsTo(User, { foreignKey: "userId" });
-Manguera.hasMany(Review);
-Review.belongsTo(Manguera);
+//User.hasMany(Order, { foreignKey: "userId" });
+//Cart.belongsTo(User, { foreignKey: "userId" });
+//Manguera.hasMany(Review);
+//Review.belongsTo(Manguera);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

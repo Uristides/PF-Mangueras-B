@@ -12,6 +12,7 @@ const postCreateProduct = async (req, res) => {
     description,
     stock,
     available,
+    show,
   } = req.body;
   try {
     const info = {
@@ -19,11 +20,13 @@ const postCreateProduct = async (req, res) => {
       image: image,
       price: price,
       diameter: diameter,
+      longitude: longitude,
       description: description,
       stock: stock,
       available: available,
+      show: show,
     };
-    const response = await createProductDB(info, longitude, brand, type);
+    const response = await createProductDB(info, brand, type);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json({ error: error.message });

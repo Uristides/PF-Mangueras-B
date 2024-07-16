@@ -13,23 +13,12 @@ const getProducts = async () => {
         attributes: ["type"],
         as: "type", // Especifica un alias para el tipo
       },
-      {
-        model: Longitudes,
-        attributes: ["longitude"],
-        through: { attributes: [] }, // Relación muchos a muchos
-        as: "longitudes", // Especifica un alias para las longitudes
-      },
     ],
   });
 
   // Mapea los resultados para transformar las longitudes en un array simple
   const transformedProducts = products.map((product) => {
     const transformedProduct = product.toJSON();
-    // Renombra la propiedad longitudes a longitude
-    transformedProduct.longitude = transformedProduct.longitudes
-      ? transformedProduct.longitudes.map((l) => l.longitude)
-      : [];
-    delete transformedProduct.longitudes; // Elimina la propiedad longitudes
     transformedProduct.brand = transformedProduct.brand
       ? transformedProduct.brand.brand
       : null; // Asegura que la propiedad brand tenga solo el nombre

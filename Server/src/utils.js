@@ -25,6 +25,7 @@ const parceoDB = async () => {
       description: mang.description,
       stock: mang.stock,
       available: mang.available,
+      show: mang.show,
       longitude: mang.longitude, // Incluimos la longitud para luego hacer la relación
     }));
 
@@ -41,34 +42,25 @@ const parceoDB = async () => {
       { type: "Jardineria" },
       { type: "Agricultura" },
     ]);
-    await Longitudes.bulkCreate([
-      { longitude: 15 },
-      { longitude: 30 },
-      { longitude: 45 },
-      { longitude: 60 },
-    ]);
 
     // Inserción de mangueras con relaciones
     for (const mang of manguerasToInsert) {
       const marca = await Brands.findOne({ where: { brand: mang.brand } });
       const tipo = await Types.findOne({ where: { type: mang.type } });
-      const longitudes = await Longitudes.findAll({
-        where: { longitude: mang.longitude },
-      });
 
       const manguera = await Manguera.create({
         name: mang.name,
         image: mang.image,
         price: mang.price,
         diameter: mang.diameter,
+        longitude: mang.longitude,
         description: mang.description,
         stock: mang.stock,
         available: mang.available,
+        show: mang.show,
         brandId: marca.id,
         typeId: tipo.id,
       });
-
-      await manguera.addLongitudes(longitudes);
     }
   } catch (error) {
     console.error(
