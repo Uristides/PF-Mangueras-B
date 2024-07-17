@@ -1,4 +1,4 @@
-const postaddCart = require("../../controllers/userControllers/postAddCart");
+const postaddCart = require("../../../controllers/userControllers/cartControllers/postAddCart");
 
 const addCartHandler = async (req, res) => {
   const { id, item } = req.body;

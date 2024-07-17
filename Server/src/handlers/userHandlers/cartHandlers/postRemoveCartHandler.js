@@ -1,4 +1,4 @@
-const postRemoveCart = require("../../controllers/userControllers/postRemoveCart");
+const postRemoveCart = require("../../../controllers/userControllers/cartControllers/postRemoveCart");
 
 const removeCartHandler = async (req, res) => {
   const { id, item } = req.body;
