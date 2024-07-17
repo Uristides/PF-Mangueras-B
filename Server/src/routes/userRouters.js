@@ -4,8 +4,8 @@ const getUsersHandler = require("../handlers/userHandlers/getUsersHandlers");
 const loginUserHandler = require("../handlers/userHandlers/postLoginHandler");
 const protectedHandler = require("../handlers/userHandlers/getProtectHandler");
 const logoutHandler = require("../handlers/userHandlers/getLogoutHandler");
-const removeCartHandler = require("../handlers/userHandlers/postRemoveCartHandler");
-const addCartHandler = require("../handlers/userHandlers/postAddCartHandler");
+const removeCartHandler = require("../handlers/userHandlers/cartHandlers/postRemoveCartHandler");
+const addCartHandler = require("../handlers/userHandlers/cartHandlers/postRemoveCartHandler");
 
 const UserRoutes = Router();
 
