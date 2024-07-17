@@ -1,20 +1,32 @@
 const createProductDB = require("../../controllers/controllerProducts/postProduct");
 
 const postCreateProduct = async (req, res) => {
-  /* const { image, name, height, weight, life_span, temperaments } = req.body;
+  const {
+    name,
+    image,
+    price,
+    diameter,
+    longitude,
+    brand,
+    type,
+    description,
+    stock,
+    available,
+    show,
+  } = req.body;
   try {
     const info = {
-      image: image,
       name: name,
-      height: height,
-      weight: weight,
-      life_span: life_span,
-    
-};
-*/
-  const info = req.body;
-  try {
-    const response = await createProductDB(info /*brand*/);
+      image: image,
+      price: price,
+      diameter: diameter,
+      longitude: longitude,
+      description: description,
+      stock: stock,
+      available: available,
+      show: show,
+    };
+    const response = await createProductDB(info, brand, type);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json({ error: error.message });

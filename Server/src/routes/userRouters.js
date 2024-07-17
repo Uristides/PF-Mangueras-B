@@ -4,13 +4,17 @@ const getUsersHandler = require("../handlers/userHandlers/getUsersHandlers");
 const loginUserHandler = require("../handlers/userHandlers/postLoginHandler");
 const protectedHandler = require("../handlers/userHandlers/getProtectHandler");
 const logoutHandler = require("../handlers/userHandlers/getLogoutHandler");
+const removeCartHandler = require("../handlers/userHandlers/cartHandlers/postRemoveCartHandler");
+const addCartHandler = require("../handlers/userHandlers/cartHandlers/postRemoveCartHandler");
 
 const UserRoutes = Router();
 
 UserRoutes.post("/register", registerUserHandler);
 UserRoutes.post("/login", loginUserHandler);
+UserRoutes.post("/addCart", addCartHandler);
+UserRoutes.post("/removeCart", removeCartHandler);
 UserRoutes.get("/", getUsersHandler);
 UserRoutes.get("/protected", protectedHandler);
-UserRoutes.get("/logout", logoutHandler);
+UserRoutes.post("/logout", logoutHandler);
 
 module.exports = UserRoutes;
