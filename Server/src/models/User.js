@@ -14,25 +14,33 @@ module.exports = (sequelize) => {
       },
       name: {
         type: DataTypes.STRING,
+        defaultValue: "",
         allowNull: false,
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: "",
         isUrl: true,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      tercero: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
       rol: {
         type: DataTypes.STRING,
-        defaultValue: "user",
+        defaultValue: "User",
         allowNull: false,
       },
       cart: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         defaultValue: [],
+        allowNull: false,
       },
     },
     { timestamps: false }
