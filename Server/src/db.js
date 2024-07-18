@@ -2,22 +2,24 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_DEPLOY } = process.env;
-
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
+//comentar 19082 si se ejeca en local
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}19082/${DB_NAME}`,
   {
     logging: false,
     native: false,
+    dialectOptions: {
+      connectTimeout: 60000, // 60 segundos
+    },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 60000, // 60 segundos
+      idle: 10000,
+    },
   }
 );
-
-//const sequelize = new Sequelize(DB_DEPLOY,
-//  {
-//   logging: false,
-//   native: false,
-// }
-//);
 
 const basename = path.basename(__filename);
 
