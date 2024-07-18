@@ -33,7 +33,7 @@ server.use(morgan("dev"));
 server.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
-    "https://thehosefactory.up.railway.app" /*"http://localhost:4173"*/
+    /*"https://thehosefactory.up.railway.app"*/ "http://localhost:4173"
   ); // cambiar si se ejecuta en localhost
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
