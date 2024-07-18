@@ -31,7 +31,7 @@ server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // actualice para que coincida con el dominio desde el que realizará la solicitud
+  res.header("Access-Control-Allow-Origin", "http://localhost:4173"); // actualice para que coincida con el dominio desde el que realizará la solicitud
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
