@@ -15,7 +15,6 @@ const UserRoutes = Router();
 UserRoutes.post("/register", registerUserHandler);
 UserRoutes.post("/login", loginUserHandler);
 UserRoutes.post("/editUser", postEditUserHandler);
-UserRoutes.get("/:id", getUserHandler);
 UserRoutes.post("/addCart", addCartHandler);
 UserRoutes.post("/removeCart", removeCartHandler);
 UserRoutes.post("/editCart", editCartHandler);
@@ -23,4 +22,5 @@ UserRoutes.get("/", getUsersHandler);
 UserRoutes.get("/protected", protectedHandler);
 UserRoutes.post("/logout", logoutHandler);
 
+UserRoutes.get("/id/:id", getUserHandler);
 module.exports = UserRoutes;

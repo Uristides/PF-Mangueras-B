@@ -2,7 +2,7 @@ const { User } = require("../../db");
 const { hashSync } = require("bcrypt");
 
 const registerUserHandler = async (req, res) => {
-  const { name, password, email, rol } = req.body;
+  const { name, password, email, rol, tercero } = req.body;
 
   try {
     const UserExist = await User.findOne({ where: { email: email } });
@@ -15,6 +15,7 @@ const registerUserHandler = async (req, res) => {
         password: hashedPW,
         email,
         rol,
+        tercero,
       });
       return res.status(200).json(response);
     }
