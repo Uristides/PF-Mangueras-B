@@ -1,18 +1,3 @@
-// const express = require("express");
-// const router = require("./routes");
-// const morgan = require("morgan");
-// const cors = require("cors");
-
-// const server = express();
-
-// server.use(morgan("dev"));
-// server.use(express.json());
-// server.use(cors());
-
-// server.use(router);
-
-// module.exports = server;
-
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -31,10 +16,16 @@ server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://thehosefactory.up.railway.app" /*"http://localhost:4173"*/
-  ); // cambiar si se ejecuta en localhost
+  const allowedOrigins = [
+    "http://localhost:4173",
+    "https://thehosefactory.up.railway.app",
+  ];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+  }
+
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
