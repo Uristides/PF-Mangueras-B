@@ -8,11 +8,13 @@ const removeCartHandler = require("../handlers/userHandlers/cartHandlers/postRem
 const addCartHandler = require("../handlers/userHandlers/cartHandlers/postAddCartHandler");
 const editCartHandler = require("../handlers/userHandlers/cartHandlers/postEditCartHandler");
 const getUserHandler = require("../handlers/userHandlers/getUserHandler");
+const postEditUserHandler = require("../handlers/userHandlers/postEditUserHandler");
 
 const UserRoutes = Router();
 
 UserRoutes.post("/register", registerUserHandler);
 UserRoutes.post("/login", loginUserHandler);
+UserRoutes.post("/editUser", postEditUserHandler);
 UserRoutes.get("/:id", getUserHandler);
 UserRoutes.post("/addCart", addCartHandler);
 UserRoutes.post("/removeCart", removeCartHandler);
