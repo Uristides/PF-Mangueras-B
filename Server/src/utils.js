@@ -49,7 +49,7 @@ const parceoDB = async () => {
     await User.create({
       name: "admin",
       password: hashedPW,
-      email: "@admin.com",
+      email: "admin@admin.com",
       rol: "Admin",
     });
 
