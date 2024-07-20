@@ -81,8 +81,8 @@ Brands.hasMany(Manguera, { foreignKey: "brandId" });
 Manguera.belongsTo(Types, { foreignKey: "typeId" });
 Types.hasMany(Manguera, { foreignKey: "typeId" });
 
-//User.hasMany(Order, { foreignKey: "userId" });
-//Cart.belongsTo(User, { foreignKey: "userId" });
+User.hasMany(Order, { foreignKey: "userId" });
+Order.belongsTo(User, { foreignKey: "userId" });
 //Manguera.hasMany(Review);
 //Review.belongsTo(Manguera);
 

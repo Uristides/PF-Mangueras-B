@@ -10,6 +10,8 @@ const editCartHandler = require("../handlers/userHandlers/cartHandlers/postEditC
 const getUserHandler = require("../handlers/userHandlers/getUserHandler");
 const postEditUserHandler = require("../handlers/userHandlers/postEditUserHandler");
 const buyCartHandler = require("../handlers/userHandlers/cartHandlers/postBuyHandler");
+const getUserOrdersHandler = require("../handlers/userHandlers/getUserOrderHandler");
+const getOrdersHandler = require("../handlers/userHandlers/getOrdersHandler");
 
 const UserRoutes = Router();
 
@@ -23,6 +25,8 @@ UserRoutes.post("/addCart", addCartHandler);
 UserRoutes.post("/removeCart", removeCartHandler);
 UserRoutes.post("/editCart", editCartHandler);
 UserRoutes.post("/buyCart", buyCartHandler);
+UserRoutes.get("/orders", getOrdersHandler);
+UserRoutes.get("/orders/:id", getUserOrdersHandler);
 ///
 UserRoutes.get("/", getUsersHandler);
 UserRoutes.get("/protected", protectedHandler);
