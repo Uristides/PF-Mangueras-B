@@ -1,5 +1,8 @@
-const { Manguera, Brands, Types, Longitudes } = require("./db");
+const { hashSync } = require("bcrypt");
+const { Manguera, Brands, Types, User } = require("./db");
 const db = require("./db.json");
+
+const hashedPW = hashSync("12345678", 3);
 
 const checkIfEmpty = async () => {
   try {
@@ -42,6 +45,13 @@ const parceoDB = async () => {
       { type: "Jardineria" },
       { type: "Agricultura" },
     ]);
+
+    await User.create({
+      name: "admin",
+      password: hashedPW,
+      email: "admin@admin.com",
+      rol: "Admin",
+    });
 
     // Inserción de mangueras con relaciones
     for (const mang of manguerasToInsert) {

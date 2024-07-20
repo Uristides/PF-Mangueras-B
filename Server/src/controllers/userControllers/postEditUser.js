@@ -13,8 +13,8 @@ const editUser = async (id, edit) => {
       },
       { where: { id } }
     );
-
-    return { message: "Usuario actualizado correctamente" };
+    const usuario = await User.findByPk(id);
+    return { message: "Usuario actualizado correctamente", usuario };
   } catch (error) {
     console.error("Error en editUser:", error.message);
     throw new Error("Error en editUser: " + error.message);
