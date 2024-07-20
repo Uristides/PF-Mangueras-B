@@ -13,7 +13,7 @@ const loginUserHandler = async (req, res) => {
       const claveValida = await compare(password, user.password);
       if (claveValida) {
         const token = sign(
-          { name: user.name, email: user.email, rol: user.rol },
+          { id: user.id, name: user.name, email: user.email, rol: user.rol },
           SECRET,
           { expiresIn: "1h" }
         );
