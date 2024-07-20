@@ -69,8 +69,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Aca los modelos de la base de datos
-const { Manguera, Order, Review, Stock, User, Brands, Longitudes, Types } =
-  sequelize.models;
+const { Manguera, Order, Review, User, Brands, Types } = sequelize.models;
 
 // Aca vendrian las relaciones
 
@@ -83,8 +82,11 @@ Types.hasMany(Manguera, { foreignKey: "typeId" });
 
 User.hasMany(Order, { foreignKey: "userId" });
 Order.belongsTo(User, { foreignKey: "userId" });
-//Manguera.hasMany(Review);
-//Review.belongsTo(Manguera);
+
+User.hasMany(Review, { foreignKey: "userId" });
+Manguera.hasMany(Review, { foreignKey: "mangueraId" });
+Review.belongsTo(User, { foreignKey: "userId" });
+Review.belongsTo(Manguera, { foreignKey: "mangueraId" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

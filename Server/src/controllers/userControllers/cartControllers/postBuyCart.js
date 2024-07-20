@@ -72,7 +72,7 @@ const postBuyCart = async (id, totalAmount) => {
 
     // Crear la orden antes de vaciar el carrito
     const order = await usuario.createOrder({
-      cart, // No es necesario convertir a JSON, ya que cart ya es un array de strings
+      cart,
       status: true,
       amount: totalAmount,
     });
