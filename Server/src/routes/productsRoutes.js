@@ -17,12 +17,12 @@ productsRoutes.get("/longitudes", getLongitudesHandler);
 productsRoutes.get("/types", getTypesHandler);
 
 //Products
+productsRoutes.post("/", postCreateProduct);
+productsRoutes.post("/edit", postEditHandler);
 
 productsRoutes.get("/", getProductsHandler);
 productsRoutes.get("/search", getByNameHandler);
 productsRoutes.get("/:id", getInfoHandler);
 
-productsRoutes.post("/", postCreateProduct);
-productsRoutes.post("/edit", postEditHandler);
 
 module.exports = productsRoutes;
