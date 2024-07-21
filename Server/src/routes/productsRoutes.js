@@ -22,7 +22,6 @@ productsRoutes.get("/types", getTypesHandler);
 
 productsRoutes.get("/", getProductsHandler);
 productsRoutes.get("/search", getByNameHandler);
-productsRoutes.get("/:id", getInfoHandler);
 //Reviews
 
 productsRoutes.get("/reviews/:id", getReviewsHandler);
@@ -32,4 +31,5 @@ productsRoutes.post("/reviews/", postReviewHandler);
 productsRoutes.post("/", postCreateProduct);
 productsRoutes.post("/edit", postEditHandler);
 
+productsRoutes.get("/:id", getInfoHandler);
 module.exports = productsRoutes;

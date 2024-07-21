@@ -2,6 +2,7 @@ const postEditProduct = require("../../controllers/controllerProducts/postEditPr
 
 const postEditHandler = async (req, res) => {
   const {
+    id,
     name,
     image,
     price,
