@@ -40,6 +40,7 @@ const parceoDB = async () => {
       { brand: "AquaFlow" },
       { brand: "GreenWave" },
     ]);
+    
     await Types.bulkCreate([
       { type: "Domestico" },
       { type: "Jardineria" },
