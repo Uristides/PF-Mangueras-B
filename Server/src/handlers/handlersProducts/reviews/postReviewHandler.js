@@ -1,10 +1,10 @@
 const postReview = require("../../../controllers/controllerProducts/reviews/postReview");
 
 const postReviewHandler = async (req, res) => {
-  const { userId, mangueraId, coment, rating } = req.body;
+  const { userId, mangueraId, comment, rating } = req.body;
   try {
     const info = {
-      coment: coment,
+      comment: comment,
       rating: rating,
     };
     const response = await postReview(userId, mangueraId, info);

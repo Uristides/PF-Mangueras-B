@@ -15,7 +15,7 @@ const productsRoutes = Router();
 //Categories
 
 productsRoutes.get("/brands", getBrandsHandler);
-productsRoutes.get("/longitudes", getLongitudesHandler);
+//productsRoutes.get("/longitudes", getLongitudesHandler);
 productsRoutes.get("/types", getTypesHandler);
 
 //Products
