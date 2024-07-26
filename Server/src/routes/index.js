@@ -5,7 +5,7 @@ const manguerasRoutes = require("./manguerasRoutes");
 
 const mainRouter = Router();
 
-mainRouter.use("/products", productsRoutes);
+mainRouter.use("/products", productsRoutes); 
 
 mainRouter.use("/user", userRoutes);
 

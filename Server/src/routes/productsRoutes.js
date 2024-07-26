@@ -7,8 +7,11 @@ const getBrandsHandler = require("../handlers/handlersProducts/categories/getBra
 const getLongitudesHandler = require("../handlers/handlersProducts/categories/getLongitudesHandler");
 const getTypesHandler = require("../handlers/handlersProducts/categories/getTypesHandler");
 const postEditHandler = require("../handlers/handlersProducts/postEditHandler");
+
 const getReviewsHandler = require("../handlers/handlersProducts/reviews/getReviewsHandler");
+const getUserReviewsHandler = require("../handlers/handlersProducts/reviews/getUserReviewsHandler")
 const postReviewHandler = require("../handlers/handlersProducts/reviews/postReviewHandler");
+
 
 const productsRoutes = Router();
 
@@ -19,17 +22,18 @@ productsRoutes.get("/longitudes", getLongitudesHandler);
 productsRoutes.get("/types", getTypesHandler);
 
 //Products
-
-productsRoutes.get("/", getProductsHandler);
 productsRoutes.get("/search", getByNameHandler);
-//Reviews
 
-productsRoutes.get("/reviews/:id", getReviewsHandler);
-productsRoutes.post("/reviews/", postReviewHandler);
+//Reviews
+productsRoutes.post("/reviews", postReviewHandler); 
+productsRoutes.get("/reviews/byUserId/:id", getUserReviewsHandler)
 
 //admin
-productsRoutes.post("/", postCreateProduct);
 productsRoutes.post("/edit", postEditHandler);
+productsRoutes.post("/", postCreateProduct);
 
-productsRoutes.get("/:id", getInfoHandler);
+//por params
+productsRoutes.get("/", getProductsHandler);
+productsRoutes.get("/reviews/id/:id", getReviewsHandler);
+productsRoutes.get("id/:id", getInfoHandler);
 module.exports = productsRoutes;
