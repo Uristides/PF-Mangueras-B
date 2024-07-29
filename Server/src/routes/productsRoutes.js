@@ -16,6 +16,7 @@ const postReviewHandler = require("../handlers/handlersProducts/reviews/postRevi
 const productsRoutes = Router();
 
 //Categories
+productsRoutes.get("/", getProductsHandler);
 
 productsRoutes.get("/brands", getBrandsHandler);
 productsRoutes.get("/longitudes", getLongitudesHandler);
@@ -33,7 +34,6 @@ productsRoutes.post("/edit", postEditHandler);
 productsRoutes.post("/", postCreateProduct);
 
 //por params
-productsRoutes.get("/", getProductsHandler);
 productsRoutes.get("/reviews/id/:id", getReviewsHandler);
-productsRoutes.get("id/:id", getInfoHandler);
+productsRoutes.get("/:id", getInfoHandler);
 module.exports = productsRoutes;
