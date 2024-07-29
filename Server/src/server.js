@@ -3,6 +3,9 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mainRouter = require("./routes/index.js");
+const dotenv = require('dotenv'); // Importar dotenv para cargar las variables de entorno
+
+dotenv.config(); // Cargar las variables de entorno
 
 require("./db.js");
 
@@ -38,7 +41,6 @@ server.use("/", mainRouter);
 
 // Error catching endware.
 server.use((err, req, res, next) => {
-  // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;
   console.error(err);
