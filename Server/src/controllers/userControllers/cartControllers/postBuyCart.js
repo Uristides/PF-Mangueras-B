@@ -1,30 +1,33 @@
-const { User, Manguera, Order } = require("../../../db");
+const mercadopago = require("mercadopago");
+const { User, Manguera } = require("../../../db");
+
+// Configura Mercado Pago con tu access token
+const client = new mercadopago.MercadoPagoConfig({
+  accessToken:
+    "TEST-8914053964380499-072819-0e25f688909c7429f596f12992b0c3f3-1921011382",
+});
+const preference = new mercadopago.Preference(client);
 
 const postBuyCart = async (id, totalAmount) => {
   try {
     // Obtén el usuario por su ID
     const usuario = await User.findByPk(id);
-
     if (!usuario) {
       throw new Error(`Usuario con ID ${id} no encontrado.`);
     }
 
-    // Obtén el carrito del usuario y verifica que sea un array
+    // Obtén y verifica el carrito del usuario
     const cart = usuario.cart;
     if (!Array.isArray(cart)) {
       throw new Error("El carrito del usuario no está en el formato esperado.");
     }
-
     console.log("Carrito del usuario:", cart);
 
-    // Recopilar información sobre productos con stock insuficiente
+    // Verificación del stock
     let stockIssues = [];
-
-    // Primera iteración: verificar stock
     for (let item of cart) {
       const [idProducto, cantidad] = item.split(":").map(Number);
       const manguera = await Manguera.findByPk(idProducto);
-
       if (manguera) {
         if (manguera.stock < cantidad) {
           stockIssues.push({
@@ -38,7 +41,7 @@ const postBuyCart = async (id, totalAmount) => {
       }
     }
 
-    // Si hubo problemas de stock, lanzar un error con la información recopilada
+    // Manejo de problemas de stock
     if (stockIssues.length > 0) {
       throw new Error(
         `Stock insuficiente para algunos productos: ${JSON.stringify(
@@ -47,48 +50,60 @@ const postBuyCart = async (id, totalAmount) => {
       );
     }
 
-    // Segunda iteración: actualizar stock y crear la orden
-    for (let item of cart) {
-      const [idProducto, cantidad] = item.split(":").map(Number);
-      const manguera = await Manguera.findByPk(idProducto);
+    // Crear la preferencia de pago en Mercado Pago
+    const items = await Promise.all(
+      cart.map(async (item) => {
+        const [idProducto, cantidad] = item.split(":").map(Number);
+        const manguera = await Manguera.findByPk(idProducto);
+        if (!manguera) {
+          throw new Error(`Producto con ID ${idProducto} no encontrado.`);
+        }
+        return {
+          title: manguera.name,
+          quantity: parseInt(cantidad, 10),
+          unit_price: parseFloat(manguera.price),
+          currency_id: "USD",
+        };
+      })
+    );
 
-      // Resta la cantidad del stock actual
-      console.log(
-        `Actualizando stock del producto ID ${idProducto}: ${manguera.stock} - ${cantidad}`
+    const preferenceData = {
+      body: {
+        items,
+        back_urls: {
+          success: "https://thehosefactory.up.railway.app",
+          failure: "https://thehosefactory.up.railway.app",
+          pending: "https://thehosefactory.up.railway.app",
+        },
+        auto_return: "approved",
+      },
+    };
+    console.log(
+      "Datos de preferencia de pago antes de la creación:",
+      JSON.stringify(preferenceData, null, 2)
+    );
+
+    // Crear una nueva preferencia utilizando la configuración del cliente
+    const response = await preference.create(preferenceData);
+    const preferenceId = response.body.id;
+    console.log(`Preferencia de pago creada con éxito: ${preferenceId}`);
+
+    if (response && response.body) {
+      const preferenceId = response.body.id;
+      console.log(`Preferencia de pago creada con éxito: ${preferenceId}`);
+      return { id: preferenceId };
+    } else {
+      console.error(
+        "Respuesta inesperada de la API de Mercado Pago:",
+        response
       );
-      manguera.stock -= cantidad;
-
-      // Si el stock llega a 0, cambia available a false
-      if (manguera.stock === 0) {
-        manguera.available = false;
-      }
-
-      // Guarda los cambios en la base de datos
-      await manguera.save();
-      console.log(
-        `Stock actualizado para el producto ID ${idProducto}: ${manguera.stock}`
-      );
+      throw new Error("Respuesta inesperada de la API de Mercado Pago");
     }
-
-    // Crear la orden antes de vaciar el carrito
-    const order = await usuario.createOrder({
-      cart,
-      status: true,
-      amount: totalAmount,
-    });
-
-    console.log(`Orden creada con éxito: ${order.id}`);
-
-    // Vacía el carrito del usuario si la orden se creó correctamente
-    usuario.cart = [];
-
-    // Guarda los cambios en el usuario
-    await usuario.save();
-    console.log(`Carrito del usuario ID ${id} vaciado.`);
-
-    return { message: "Compra realizada exitosamente", orderId: order.id };
   } catch (error) {
     console.error("No se efectuó la compra:", error.message);
+    if (error.response) {
+      console.error("Detalles del error:", error.response.data);
+    }
     throw new Error("No se efectuó la compra: " + error.message);
   }
 };
