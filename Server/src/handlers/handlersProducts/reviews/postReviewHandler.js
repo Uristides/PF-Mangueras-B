@@ -7,7 +7,7 @@ const postReviewHandler = async (req, res) => {
       comment: comment,
       rating: rating,
     };
-    const response = await postReview(userId, mangueraId, info);
+    const response = await postReview(userId, mangueraId, info); 
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json({ error: error.message });
