@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      fecha_creacion: {
+      creation_date: {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW, // Establece la fecha actual como valor predeterminado

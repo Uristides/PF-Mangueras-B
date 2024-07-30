@@ -48,6 +48,11 @@ module.exports = (sequelize) => {
         defaultValue: [],
         allowNull: false,
       },
+      purchases: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: [],
+        allowNull: false,
+      },
     },
     { timestamps: false }
   );
