@@ -12,6 +12,6 @@ mainRouter.use("/user", userRoutes);
 
 mainRouter.use("/mangueras", manguerasRoutes);
 
-mainRouter.use('/promotions', promotionRoutes);
+mainRouter.use('/promotion', promotionRoutes);
 
 module.exports = mainRouter;

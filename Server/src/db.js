@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_DEPLOY } = process.env;
 
 // Selección de la configuración de Sequelize
@@ -69,7 +70,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Aca los modelos de la base de datos
-const { Manguera, Order, Review, User, Brands, Types } = sequelize.models;
+const { Manguera, Order, Review, User, Brands, Types, Promotion } = sequelize.models; // Agregamos el modelo Promotion
 
 // Aca vendrian las relaciones
 
@@ -87,6 +88,10 @@ User.hasMany(Review, { foreignKey: "userId" });
 Manguera.hasMany(Review, { foreignKey: "mangueraId" });
 Review.belongsTo(User, { foreignKey: "userId" });
 Review.belongsTo(Manguera, { foreignKey: "mangueraId" });
+
+// Relación muchos a muchos (N:M) entre Manguera y Promotion
+Manguera.belongsToMany(Promotion, { through: 'MangueraPromotions' });
+Promotion.belongsToMany(Manguera, { through: 'MangueraPromotions' });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

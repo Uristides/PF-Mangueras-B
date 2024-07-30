@@ -1,13 +1,12 @@
 // controllers/promotionController.js
 
-const Promotion = require('../models/Promotion');
-const Product = require('../models/Product');
+const { Promotion, Manguera } = require('../db');
 
-// Crear promoción
+// Crear una nueva promoción
 exports.createPromotion = async (req, res) => {
   try {
-    const { title, description, discountPercentage, startDate, endDate, isActive, products } = req.body;
-    
+    const { title, description, discountPercentage, startDate, endDate, isActive, mangueras } = req.body;
+
     const promotion = await Promotion.create({
       title,
       description,
@@ -17,9 +16,9 @@ exports.createPromotion = async (req, res) => {
       isActive,
     });
 
-    if (products && products.length > 0) {
-      const selectedProducts = await Product.findAll({ where: { id: products } });
-      await promotion.setProducts(selectedProducts);
+    if (mangueras && mangueras.length > 0) {
+      const selectedMangueras = await Manguera.findAll({ where: { id: mangueras } });
+      await promotion.setMangueras(selectedMangueras);
     }
 
     res.status(201).json(promotion);
@@ -29,11 +28,11 @@ exports.createPromotion = async (req, res) => {
   }
 };
 
-// Actualizar promoción
+// Actualizar una promoción existente
 exports.updatePromotion = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, discountPercentage, startDate, endDate, isActive, products } = req.body;
+    const { title, description, discountPercentage, startDate, endDate, isActive, mangueras } = req.body;
 
     const promotion = await Promotion.findByPk(id);
 
@@ -50,9 +49,9 @@ exports.updatePromotion = async (req, res) => {
       isActive,
     });
 
-    if (products && products.length > 0) {
-      const selectedProducts = await Product.findAll({ where: { id: products } });
-      await promotion.setProducts(selectedProducts);
+    if (mangueras && mangueras.length > 0) {
+      const selectedMangueras = await Manguera.findAll({ where: { id: mangueras } });
+      await promotion.setMangueras(selectedMangueras);
     }
 
     res.json(promotion);
@@ -66,7 +65,7 @@ exports.updatePromotion = async (req, res) => {
 exports.getPromotions = async (req, res) => {
   try {
     const promotions = await Promotion.findAll({
-      include: [{ model: Product }],
+      include: [{ model: Manguera }], // Incluye las mangueras relacionadas
     });
     res.json(promotions);
   } catch (error) {
@@ -75,7 +74,7 @@ exports.getPromotions = async (req, res) => {
   }
 };
 
-// Eliminar promoción
+// Eliminar una promoción
 exports.deletePromotion = async (req, res) => {
   try {
     const { id } = req.params;
