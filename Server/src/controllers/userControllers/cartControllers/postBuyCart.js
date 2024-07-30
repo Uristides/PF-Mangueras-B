@@ -71,7 +71,7 @@ const postBuyCart = async (id, totalAmount) => {
       body: {
         items,
         back_urls: {
-          success: "https://thehosefactory.up.railway.app/checkout/feedback",
+          success: "https://thehosefactory.up.railway.app/checkout/feedBack",
           failure: "https://thehosefactory.up.railway.app/checkeout",
           pending: "https://thehosefactory.up.railway.app",
         },
