@@ -4,7 +4,7 @@ const { User, Manguera } = require("../../../db");
 // Configura Mercado Pago con tu access token
 const client = new mercadopago.MercadoPagoConfig({
   accessToken:
-    "TEST-8914053964380499-072819-0e25f688909c7429f596f12992b0c3f3-1921011382",
+    "APP_USR-7931301816816377-073016-89c30ef75ab9cf432cd884fa4ea8001f-1925105126",
 });
 const preference = new mercadopago.Preference(client);
 
