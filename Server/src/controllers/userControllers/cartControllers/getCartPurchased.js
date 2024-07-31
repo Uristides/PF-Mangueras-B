@@ -1,9 +1,9 @@
-const mercadopago = require("mercadopago");
-const { User, Manguera, Order } = require("../../models"); // Ajusta las rutas a tus modelos
+const { User, Manguera, Order } = require("../../../db"); // Ajusta las rutas a tus modelos
 
 const getCartPurchased = async (userId, totalPrice) => {
   try {
-    const usuario = await User.findByPk(userId);
+    console.log(userId.query.userId);
+    const usuario = await User.findByPk(userId.query.userId);
 
     if (!usuario) {
       throw new Error(`Usuario con ID ${userId} no encontrado.`);
@@ -36,7 +36,7 @@ const getCartPurchased = async (userId, totalPrice) => {
       userId: usuario.id,
       cart,
       status: true,
-      amount: totalPrice,
+      amount: totalPrice.query.totalPrice,
     });
 
     usuario.cart = [];
