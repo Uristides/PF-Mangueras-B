@@ -12,10 +12,8 @@ const postEditUserHandler = require("../handlers/userHandlers/postEditUserHandle
 const buyCartHandler = require("../handlers/userHandlers/cartHandlers/postBuyHandler");
 const getUserOrdersHandler = require("../handlers/userHandlers/getUserOrderHandler");
 const getOrdersHandler = require("../handlers/userHandlers/getOrdersHandler");
-const {
-  getCartPurchased,
-} = require("../controllers/userControllers/cartControllers/getCartPurchased");
 const getReviewsUserHandler = require("../handlers/handlersProducts/reviews/getUserReviewsHandler");
+const getCartPurchasedHandler = require("../handlers/userHandlers/cartHandlers/getCartPuchasedHandler");
 
 const UserRoutes = Router();
 
@@ -29,12 +27,12 @@ UserRoutes.post("/addCart", addCartHandler);
 UserRoutes.post("/removeCart", removeCartHandler);
 UserRoutes.post("/editCart", editCartHandler);
 UserRoutes.post("/buyCart", buyCartHandler);
-UserRoutes.get("/feedBack", getCartPurchased);
+UserRoutes.get("/feedBack", getCartPurchasedHandler);
 UserRoutes.get("/orders", getOrdersHandler);
 UserRoutes.get("/orders/:id", getUserOrdersHandler);
 ///
 
-UserRoutes.get("/myReviews", getReviewsUserHandler);
+UserRoutes.get("/myReviews/:id", getReviewsUserHandler);
 UserRoutes.get("/", getUsersHandler);
 UserRoutes.get("/protected", protectedHandler);
 UserRoutes.post("/logout", logoutHandler);

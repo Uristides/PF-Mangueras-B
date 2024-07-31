@@ -49,7 +49,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       purchases: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         defaultValue: [],
         allowNull: false,
       },

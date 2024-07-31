@@ -3,9 +3,9 @@ const {
 } = require("../../../controllers/userControllers/cartControllers/getCartPurchased");
 
 const getCartPurchasedHandler = async (req, res) => {
-  try {
-    const { userId, totalPrice } = req.query;
+  const { userId, totalPrice } = req.query;
 
+  try {
     const order = await getCartPurchased(userId, totalPrice);
 
     res.json({

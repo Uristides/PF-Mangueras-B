@@ -2,22 +2,25 @@ const { User, Manguera, Order } = require("../../../db"); // Ajusta las rutas a 
 
 const getCartPurchased = async (userId, totalPrice) => {
   try {
-    console.log(userId.query.userId);
-    const usuario = await User.findByPk(userId.query.userId);
+    const usuario = await User.findByPk(userId);
 
     if (!usuario) {
       throw new Error(`Usuario con ID ${userId} no encontrado.`);
     }
 
     const cart = usuario.cart;
+    const purchases = new Set(usuario.purchases);
 
-    if (!usuario.purchases) {
-      usuario.purchases = [];
-    }
+    console.log("Usuario encontrado:", usuario);
+    console.log("Carrito:", cart);
 
-    for (let item of cart) {
+    const updatePromises = cart.map(async (item) => {
       const [idProducto, cantidad] = item.split(":").map(Number);
       const manguera = await Manguera.findByPk(idProducto);
+
+      if (!manguera) {
+        throw new Error(`Producto con ID ${idProducto} no encontrado.`);
+      }
 
       manguera.stock -= cantidad;
 
@@ -27,20 +30,27 @@ const getCartPurchased = async (userId, totalPrice) => {
 
       await manguera.save();
 
-      if (!usuario.purchases.includes(idProducto)) {
-        usuario.purchases.push(idProducto);
-      }
-    }
+      purchases.add(idProducto);
+    });
+
+    await Promise.all(updatePromises);
+
+    usuario.purchases = Array.from(purchases);
+    await usuario.save();
+
+    console.log("Actualización de stock y compras completada:", usuario);
 
     const order = await Order.create({
       userId: usuario.id,
       cart,
       status: true,
-      amount: totalPrice.query.totalPrice,
+      amount: totalPrice,
     });
 
     usuario.cart = [];
     await usuario.save();
+
+    console.log("Orden creada:", order);
 
     return order;
   } catch (error) {
