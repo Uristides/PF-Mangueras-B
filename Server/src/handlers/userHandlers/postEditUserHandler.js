@@ -1,13 +1,14 @@
 const editUser = require("../../controllers/userControllers/postEditUser");
 
 const postEditUserHandler = async (req, res) => {
-  const { id, name, password, email, tercero, rol } = req.body;
+  const { id, name, password, email, tercero, status, rol } = req.body;
   try {
     const edit = {
       name: name,
       password: password,
       email: email,
       tercero: tercero,
+      status: status,
       rol: rol,
     };
     const response = await editUser(id, edit);
