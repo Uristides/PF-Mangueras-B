@@ -1,18 +1,8 @@
 const mercadopago = require("mercadopago");
 const { User, Manguera, Order } = require("../../models"); // Ajusta las rutas a tus modelos
 
-const client = new mercadopago.MercadoPagoConfig({
-  accessToken:
-    "TEST-8914053964380499-072819-0e25f688909c7429f596f12992b0c3f3-1921011382",
-});
-
-const preference = new mercadopago.Preference(client);
-
-const getCartPurchased = async (merchantOrderId, totalPrice) => {
+const getCartPurchased = async (userId, totalPrice) => {
   try {
-    const response = await preference.merchant_orders.findById(merchantOrderId);
-
-    const userId = response.body.payer.id;
     const usuario = await User.findByPk(userId);
 
     if (!usuario) {
