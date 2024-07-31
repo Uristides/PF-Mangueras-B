@@ -1,7 +1,7 @@
 const { User } = require("../../db");
 
 const editUser = async (id, edit) => {
-  const { name, password, email, tercero, rol } = edit;
+  const { name, password, email, tercero, rol, status } = edit;
   try {
     await User.update(
       {
@@ -10,6 +10,7 @@ const editUser = async (id, edit) => {
         email,
         tercero,
         rol,
+        status
       },
       { where: { id } }
     );
