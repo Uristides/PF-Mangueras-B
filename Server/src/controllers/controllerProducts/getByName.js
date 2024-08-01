@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Manguera } = require("../../db");
+const { Manguera, Brands, Types } = require("../../db");
 
 const getProductByName = async (name) => {
   try {
@@ -9,9 +9,34 @@ const getProductByName = async (name) => {
           [Op.iLike]: `%${name}%`,
         },
       },
+      include: [
+        {
+          model: Brands,
+          attributes: ["brand"],
+          as: "brand",
+        },
+        {
+          model: Types,
+          attributes: ["type"],
+          as: "type",
+        },
+      ],
     });
 
-    return products;
+    const transformedProducts = products.map((product) => {
+      const transformedProduct = product.toJSON();
+      transformedProduct.brand = transformedProduct.brand
+        ? transformedProduct.brand.brand
+        : null;
+      transformedProduct.type = transformedProduct.type
+        ? transformedProduct.type.type
+        : null;
+      delete transformedProduct.brandId;
+      delete transformedProduct.typeId;
+      return transformedProduct;
+    });
+
+    return transformedProducts;
   } catch (error) {
     console.log(error);
     throw new Error("Error al buscar Producto");
