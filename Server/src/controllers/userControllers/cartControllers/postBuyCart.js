@@ -72,8 +72,8 @@ const postBuyCart = async (id, totalAmount) => {
         items,
         back_urls: {
           success: `https://thehosefactory.up.railway.app/checkout/feedback?totalPrice=${totalAmount}`,
-          failure: `https://thehosefactory.up.railway.app/checkout/feedback?totalPrice=${totalAmount}`,
-          pending: `https://thehosefactory.up.railway.app/checkout/feedback?totalPrice=${totalAmount}`,
+          failure: `https://thehosefactory.up.railway.app/checkout`,
+          pending: `https://thehosefactory.up.railway.app`,
         },
         auto_return: "approved",
       },
