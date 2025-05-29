@@ -7,15 +7,15 @@ const tryConnect = async (retries = 5, delay = 3000) => {
     try {
       console.log(`Intento ${i + 1} de conexión a la base de datos...`);
       await conn.authenticate();
-      console.log("✅ Conectado a la base de datos");
+      console.log("Conectado a la base de datos");
       return true;
     } catch (err) {
-      console.warn("❌ Fallo de conexión:", err.message);
+      console.warn("Fallo de conexión:", err.message);
       if (i < retries - 1) {
         console.log(`Reintentando en ${delay / 1000} segundos...`);
         await new Promise((res) => setTimeout(res, delay));
       } else {
-        console.error("💥 No se pudo conectar a la base de datos después de varios intentos.");
+        console.error("No se pudo conectar a la base de datos después de varios intentos.");
         throw err;
       }
     }
