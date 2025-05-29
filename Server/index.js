@@ -1,3 +1,7 @@
+const server = require("./src/server.js");
+const { conn } = require("./src/db.js");
+const PORT = process.env.PORT || 3001;
+
 console.log("Intentando conectar a la base de datos...");
 
 conn
