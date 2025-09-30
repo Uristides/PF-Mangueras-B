@@ -62,7 +62,7 @@ const postBuyCart = async (id, totalAmount) => {
           title: manguera.name,
           quantity: parseInt(cantidad),
           unit_price: parseFloat(manguera.price),
-          currency_id: "USD",
+          currency_id: "MXN",
         };
       })
     );
